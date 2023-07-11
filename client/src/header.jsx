@@ -23,7 +23,7 @@ export default function Header() {
 
         <span className='font-bold text-xl text-gray-700'>spacee</span>
       </Link >
-      <div className='hidden flex gap-2 border border-gray-300 rounded-full py-2 px-4 shadow-md shadow-gray-200' >
+      <div className='hidden md:flex gap-2 border border-gray-300 rounded-full py-2 px-4 shadow-md shadow-gray-200 mt-2' >
         <div>anywhere</div>
         <div className="border-l border-gray-300"></div>
         <div>any week</div>

@@ -13,9 +13,9 @@ export default function BookingsPage() {
     }, []);
     return (
         <>
-            <div className="px-10 lg:grid-cols-2 ">
+            <div className="px-2 md:px-10 lg:grid-cols-2 ">
                 <NavLinks />
-                <div className="lg:grid grid-cols-2 gap-4 mt-6">
+                <div className="lg:grid grid-cols-2 gap-4 mt-8">
                     {Bookings.length > 0 && Bookings.map((booking) => (
                         <Link to={'/account/bookings/'+booking._id} className="flex  gap-4 bg-gray-50 rounded-2xl my-2 p-2">
                             <div className="w-48">

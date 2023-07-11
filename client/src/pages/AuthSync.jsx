@@ -18,14 +18,14 @@ export default function AuthModal({ open, onclose }) {
 
   return (
     <>
-      <div className={`fixed  inset-0 flex justify-end items-start py-20 px-10 transition-colors ${open ? "visible bg-white/10" : "invisible"}`} onClick={onclose}>
+      <div className={`fixed  inset-0 flex justify-end items-start py-20 px-10 transition-all duration-700 ${open ? "translate-x-0 bg-white/10" : "translate-x-[100vw]"}`} onClick={onclose}>
         <div onClick={e => e.stopPropagation()} className=" bg-white shadow-md rounded-2xl  w-56 py-4 transition-all mt-16 ">
           <div className="border-b-2  border-gray-200 py-2 px-4 ">
 
-            <Link to={'/register'} className={user ? "hidden" : "block   text-gray-600  px-2  capitalize"}>
+            <Link to={'/register'} onClick={onclose} className={user ? "hidden" : "block   text-gray-600  px-2  capitalize"}>
               sign up
             </Link>
-            <Link to={'/login'} className={user ? "hidden" : " block   text-gray-600  py-1 px-2"}>
+            <Link to={'/login'} onClick={onclose} className={user ? "hidden" : " block   text-gray-600  py-1 px-2"}>
               Login
             </Link>
             <button onClick={logout} className={!user ? "hidden" : " bg-transparent flex gap-1 text-gray-700 hover:text-primary"}>
@@ -37,10 +37,10 @@ export default function AuthModal({ open, onclose }) {
 
           </div>
           <div className="py-2 px-4">
-          <Link to={'/register'} className={ "block   text-gray-600  px-2 py-1  capitalize"}>
+          <Link to={'/register'} onClick={onclose} className={ "block   text-gray-600  px-2 py-1  capitalize"}>
               spacee your home
             </Link>
-            <Link to={'/login'} className={ "capitalize block   text-gray-600   px-2 py-1"}>
+            <Link to={'/login'} onClick={onclose} className={ "capitalize block   text-gray-600   px-2 py-1"}>
               help
             </Link>
           </div>

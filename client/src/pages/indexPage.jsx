@@ -16,7 +16,7 @@ export default function indexpage() {
     <>
       <div>
         
-        <div className="fixed top-16 mt-2 w-full flex gap-4  justify-around bg-gray-50 py-2 mx-2 rounded-lg">
+        <div className="fixed top-16 mt-2 w-full flex md:gap-4  justify-around bg-gray-50 py-2 md:mx-2 rounded-lg">
           <label className="bg-white p-1 rounded-lg cursor-pointer">
           <input type="hidden" name="free parking lot" />
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
@@ -55,11 +55,11 @@ export default function indexpage() {
           </label>
         </div>
        <div className="my-32">
-        <div className="flex justify-around items-center border max-w-lg border-gray-400 w-2/3 px-5 mx-auto gap-4 rounded-xl py-4">
-          <h1 className="text-lg font-semibold capitalize border-r-2 pr-4">display total price</h1>
-          <h1 className="text-gray-700">Includes all fees, before taxes</h1>
-          <div className="w-16 px-1 h-7 flex items-center rounded-3xl  bg-gray-400 ">
-            <div className=" bg-white w-6 h-6 rounded-full"></div>
+        <div className="flex justify-around items-center border max-w-lg border-gray-400 w-5/6 md:w-2/3 px-2 md:px-5 mx-auto gap-4 rounded-xl py-1 md:py-4">
+          <h1 className="text-xs md:text-lg font-semibold capitalize border-r-2 pr-4">display total price</h1>
+          <h1 className="text-gray-700 text-xs">Includes all fees, before taxes</h1>
+          <div className="w-10 md:w-16 py-[1px] px-[1px] h-4 md:h-7 flex items-center rounded-3xl  bg-gray-400 ">
+            <div className=" bg-white w-4  h-4 md:w-6 md:h-6 rounded-full"></div>
             </div>
         </div>
        <div className="grid grid-cols-2 gap-x-6 gap-y-8 md:grid-cols-3 lg:grid-cols-4 px-4 md:px-10">

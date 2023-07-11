@@ -28,12 +28,12 @@ export default function PlacesPage() {
 
                 {places.length > 0 && places.map(place => (
                     <Link to={'/account/places/'+place._id} className="bg-gray-100 p-4 rounded-2xl flex gap-4">
-                        <div className=" flex w-32 h-32 bg-gray-300 rounded-2xl shrink-0">
+                        <div className=" flex w-32 h-32 bg-gray-300 rounded-2xl shrink-0 ">
                             < PlaceImage place={place} />
                         </div>
                         <div className="grow-0 shrink">
-                            <h2 className="text-xl">{place.title}</h2>
-                            <p className="text-sm mt-2 shrink  ">{place.Description}</p>
+                            <h2 className="text-sm font-semibold md:text-xl">{place.title}</h2>
+                            <p className="text-sm mt-2 shrink ">{place.Description}</p>
                         </div>
                     </Link>
                 ))}
