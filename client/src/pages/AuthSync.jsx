@@ -37,10 +37,10 @@ export default function AuthModal({ open, onclose }) {
 
           </div>
           <div className="py-2 px-4">
-          <Link to={'/register'} onClick={onclose} className={ "block   text-gray-600  px-2 py-1  capitalize"}>
+          <Link to={'/'} onClick={onclose} className={ "block   text-gray-600  px-2 py-1  capitalize"}>
               spacee your home
             </Link>
-            <Link to={'/login'} onClick={onclose} className={ "capitalize block   text-gray-600   px-2 py-1"}>
+            <Link to={'/'} onClick={onclose} className={ "capitalize block   text-gray-600   px-2 py-1"}>
               help
             </Link>
           </div>

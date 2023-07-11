@@ -10,7 +10,7 @@ export default function Header() {
 
   
   return (
-    <header className=' fixed top-0 w-full  bg-white flex justify-between border-b-2 pb-4 px-4 md:px-10'>
+    <header className=' fixed top-0 w-full z-50 bg-white flex justify-between border-b-2 pb-4 px-4 md:px-10'>
       <Link to={"/"} href="" className='flex items-center gap-1 '>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FF55BB" className="w-8 h-8">
           <path d="M19.006 3.705a.75.75 0 00-.512-1.41L6 6.838V3a.75.75 0 00-.75-.75h-1.5A.75.75 0 003 3v4.93l-1.006.365a.75.75 0 00.512 1.41l16.5-6z" />
