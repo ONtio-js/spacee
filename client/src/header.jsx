@@ -1,10 +1,10 @@
-import { useContext, useState } from "react";
+import { useContext} from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "./context/userContext"
 import AuthModal from "./pages/AuthSync";
 export default function Header() {
-  const { user } = useContext(UserContext)
-  const [open, setOpen] = useState(false);
+  const { user,open,setOpen } = useContext(UserContext)
+  
   
  
 
@@ -36,7 +36,7 @@ export default function Header() {
       </div>
 
       <div className={!user?'relative mt-2  flex item-center  border border-gray-300 rounded-full py-2 px-2':"relative flex mt-2 gap-1 item-center  border border-gray-300 rounded-full py-2 px-2"} >
-        <svg  onClick={() => setOpen(true)} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 cursor-pointer">
+        <svg  onClick={(prev) => setOpen(prev => !prev)} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 cursor-pointer">
           <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
         </svg>
         <Link to={user ? '/account' : '/login'} className={!user?"hidden":'bg-gray-500  text-white rounded-full border border-gray-500 overflow-hidden'}>
@@ -47,11 +47,7 @@ export default function Header() {
 
        
         </Link>
-        {/* {!!user && (
-          <div>
-            {user.name}
-          </div>
-        )} */}
+      
            <span className={!user?"":"block absolute w-3 h-3 bg-green-500 right-1 rounded-full "}></span>
       </div>
           < AuthModal open={open} onclose={()=>setOpen(false)} />

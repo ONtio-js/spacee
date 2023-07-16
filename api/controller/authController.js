@@ -44,7 +44,7 @@ const login = async (req, res) => {
             const token = await jwt.sign({ email: user.email, id: user._id, name: user.name }, jwt_secret);
             res.status(201)
                 .cookie("token", token, { maxAge: 1000 * (60 * 60 * 24), httpOnly: true })
-                .json({message:"logging"});
+                .json(user);
         } else {
              res.status(403).json({ message: "Incorrect credentials" });
         }

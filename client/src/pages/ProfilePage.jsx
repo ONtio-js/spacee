@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react"
 import { UserContext } from "../context/userContext"
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate, redirect, useParams } from "react-router-dom";
 import { HiLocationMarker } from 'react-icons/hi';
 import { MdVerified, MdEdit, MdOutlineReport } from 'react-icons/md';
 import { AiOutlineStar, AiFillStar } from 'react-icons/ai';
@@ -14,12 +14,13 @@ import NavLinks from "./NavLinks";
 
 export default function ProfilePage() {
   const { ready, user, setUser } = useContext(UserContext);
-  if (!ready) {
+  if (!ready && !user) {
     return <Navigate to={'/'} />;
   }
   return (
     <div className="mb-10 ">
       < NavLinks />
+     
       <div className="grid grid-cols-[1.5fr,2fr] lg:w-[70vw] mx-auto rounded-[20px] mt-4 mb-10 px-10">
         <div className="absolute  right-1 md:right-12 lg:right-[18vw] lg:mt-2 mt-1 bg-gray-400/30 cursor-pointer p-2 rounded-full">
           <span className="text-primary"><MdEdit /></span>
@@ -119,7 +120,7 @@ export default function ProfilePage() {
                 <h1 className="flex mt-3 items-center gap-1 font-bold capitalize text-gray-700 text-lg ">{user?.name} <span className="text-blue-500 text-sm"><MdVerified /></span></h1>
                 <h1 className="text-[18px] font-semibold capitalize text-primary/70">{user?.occupation} engineer</h1>
               </div>
-              <h1 className="flex items-center gap-1 capitalize text-[18px]"> <span className="text-primary/70 text-2xl"><HiLocationMarker /></span>{user?.address} new york</h1>
+              <h1 className="flex items-center gap-1 capitalize text-[18px]"> <span className="text-primary/70 text-2xl"><HiLocationMarker /></span>{user?.address} Abuja</h1>
             </div>
             <div className="">
               <h1 className="capitalize font-medium py-1">user rating</h1>

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {Link, Navigate} from "react-router-dom";
 import axios from "axios";
 import { UserContext } from "../context/userContext";
@@ -9,7 +9,7 @@ export default function LoginPage(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [redirect, setRedirect] = useState(false);
-    const{setUser} = useContext(UserContext)
+    const{user,setUser,setReady} = useContext(UserContext)
     async function loginHandler(ev){
         ev.preventDefault();
         try {
@@ -21,8 +21,11 @@ export default function LoginPage(){
         }
        
     }
-    if(redirect) {
+    if(user){
         return <Navigate to={'/'} />;
+    }
+    if(redirect) {
+        return <Navigate to={'/account'} />;
     }
     return (
         <div className="min-h-screen mt-4 grow flex justify-around items-center">

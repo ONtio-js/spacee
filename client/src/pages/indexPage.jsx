@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+import {MdVerified} from 'react-icons/md';
 
 export default function indexpage() {
   const [places, setPlaces] = useState([]);
@@ -65,9 +65,12 @@ export default function indexpage() {
        <div className="grid grid-cols-2 gap-x-6 gap-y-8 md:grid-cols-3 lg:grid-cols-4 px-4 md:px-10">
           {places.length > 0 && places.map(place => (
             <Link to={'/place/' + place._id} className="bg-gray-50/50 border-b-2 border-gray-400 p-2 rounded-xl">
-              <div className="bg-gray-500  flex mb-2 rounded-2xl">
+              <div className="relative bg-gray-500  flex mb-2 rounded-2xl">
                 <img className="rounded-2xl aspect-square" src={'http://localhost:8080/controller/images/' + place.image?.[0]} alt="" srcSet="" />
-                <div className="w-12 h-12 bg-gray-400"></div>
+                <div className=" absolute left-1 bottom-1 w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center ">
+                  <img src={'http://localhost:8080/controller/images/' + place.image?.[1]} alt="" className="rounded-full w-full h-full" />
+                  <span className="text-blue-500 absolute top-1 -right-1"><MdVerified/></span>
+                </div>
               </div>
 
               <h3 className="font-bold truncate">{place.addresses}</h3>

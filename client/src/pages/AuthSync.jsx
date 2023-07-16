@@ -14,7 +14,6 @@ export default function AuthModal({ open, onclose }) {
   if (redirect) {
     return <Navigate to={'/'} />;
   }
-  // setRedirect('');
 
   return (
     <>
