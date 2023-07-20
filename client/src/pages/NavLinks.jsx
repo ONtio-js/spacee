@@ -8,7 +8,7 @@ export default function () {
       subpage = "profile";
     }
     function linkClass(type = null) {
-        let classes = "py-2 text-xs px-2 md:text-base md:px-6 inline-flex items-center gap-1 rounded-full";
+        let classes = "py-1 text-xs px-1 sm:px-2 md:text-base md:px-6 inline-flex items-center gap-1  rounded-full";
         if (type === subpage) {
           classes += " bg-primary text-white";
         }else{

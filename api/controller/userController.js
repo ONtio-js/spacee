@@ -8,7 +8,7 @@ const getProfile = async (req, res) => {
         try {
             const verify = await jwt.verify(token,JWT_SECRET_KEY);
             const {name, email, _id} = await User.findById(verify.id);
-            res.json({name:name, email:email});
+            res.json({name:name, email:email,id:_id});
         } catch (error) {
             res.status(500).json({message:error.message});
         }

@@ -10,10 +10,12 @@ import { FaUser } from 'react-icons/fa';
 import {RiListIndefinite} from 'react-icons/ri';
 
 import NavLinks from "./NavLinks";
+import ProfileEdit from "../components/ProfileEdit";
 
 
 export default function ProfilePage() {
   const { ready, user, setUser } = useContext(UserContext);
+  const [open,setOpen] = useState(false);
   if (!ready && !user) {
     return <Navigate to={'/'} />;
   }
@@ -23,11 +25,11 @@ export default function ProfilePage() {
      
       <div className="grid grid-cols-[1.5fr,2fr] lg:w-[70vw] mx-auto rounded-[20px] mt-4 mb-10 px-10">
         <div className="absolute  right-1 md:right-12 lg:right-[18vw] lg:mt-2 mt-1 bg-gray-400/30 cursor-pointer p-2 rounded-full">
-          <span className="text-primary"><MdEdit /></span>
+          <span onClick={() => setOpen(prev => !prev)} className="text-primary"><MdEdit /></span>
         </div>
-        <div className="shadow-md bg-gray-50 rounded-l-[20px] flex flex-col gap-6 items-center justify-center p-4 ">
+        <div className="shadow-md bg-gray-50 rounded-l-[20px] hidden md:flex flex-col gap-6 items-center justify-center p-4 ">
           <div className="w-52 h-52 bg-gray-200 rounded-[10px]">
-            <img src={user?.image} alt="" srcSet="" />
+            <img src={user?.image} alt="user profile" srcSet="" />
           </div>
 
           <div className="w-full p-2 h-[200px] bg-white/50 flex flex-col  gap-3 rounded-md overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-400 ">
@@ -113,7 +115,7 @@ export default function ProfilePage() {
             </div>
           </div>
         </div>
-        <div className="bg-gray-50/50 pl-10 p-4 rounded-r-[20px] flex flex-col gap-8">
+        <div className="bg-gray-50/50 -ml-8 md:pl-10 p-4 rounded-r-[20px] flex flex-col gap-8">
           <div className="flex flex-col gap-6  ">
             <div className="flex items- gap-6 border-b-2 pb-3 border-gray-300">
               <div>
@@ -163,7 +165,7 @@ export default function ProfilePage() {
 
       </div>
 
-
+    <ProfileEdit open={open} onClose={() =>setOpen(prev => !prev)}/>
     </div>
   )
 }

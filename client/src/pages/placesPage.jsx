@@ -3,7 +3,7 @@ import NavLinks from "./NavLinks";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import PlaceImage from "./placeImage";
-
+import '../App.css';
 
 export default function PlacesPage() {
     const [places, setPlaces] = useState([]);
@@ -24,16 +24,16 @@ export default function PlacesPage() {
                     </svg>Add new place
                 </Link>
             </div>
-            <div className="mt-4 grid lg:grid-cols-2 gap-4 px-5">
+            <div className="mt-4 grid  md:grid-cols-2 lg:grid-cols-4 gap-4 px-5">
 
                 {places.length > 0 && places.map(place => (
-                    <Link to={'/account/places/'+place._id} className="bg-gray-100 p-4 rounded-2xl flex gap-4">
+                    <Link to={'/account/places/'+place._id} key={place._id} className="bg-gray-100 p-4 rounded-2xl flex gap-4">
                         <div className=" flex w-32 h-32 bg-gray-300 rounded-2xl shrink-0 ">
                             < PlaceImage place={place} />
                         </div>
                         <div className="grow-0 shrink">
                             <h2 className="text-sm font-semibold md:text-xl">{place.title}</h2>
-                            <p className="text-sm mt-2 shrink ">{place.Description}</p>
+                            <p className="text-sm mt-2 shrink box ">{place.Description}</p>
                         </div>
                     </Link>
                 ))}

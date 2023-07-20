@@ -58,13 +58,13 @@ export default function indexpage() {
         <div className="flex justify-around items-center border max-w-lg border-gray-400 w-5/6 md:w-2/3 px-2 md:px-5 mx-auto gap-4 rounded-xl py-1 md:py-4">
           <h1 className="text-xs md:text-lg font-semibold capitalize border-r-2 pr-4">display total price</h1>
           <h1 className="text-gray-700 text-xs">Includes all fees, before taxes</h1>
-          <div className="w-10 md:w-16 py-[1px] px-[1px] h-4 md:h-7 flex items-center rounded-3xl  bg-gray-400 ">
-            <div className=" bg-white w-4  h-4 md:w-6 md:h-6 rounded-full"></div>
+          <div className="w-8 md:w-16 py-[1px] px-[1px] h-4 md:h-7 flex items-center rounded-3xl   border-[1px] border-gray-400 ">
+            <div className=" bg-primary w-4  h-4 md:w-6 md:h-6 rounded-full"></div>
             </div>
         </div>
        <div className="grid grid-cols-2 gap-x-6 gap-y-8 md:grid-cols-3 lg:grid-cols-4 px-4 md:px-10">
           {places.length > 0 && places.map(place => (
-            <Link to={'/place/' + place._id} className="bg-gray-50/50 border-b-2 border-gray-400 p-2 rounded-xl">
+            <Link to={'/place/' + place._id} key={place._id} className="bg-gray-50/50 border-b-2 border-gray-400 p-2 rounded-xl">
               <div className="relative bg-gray-500  flex mb-2 rounded-2xl">
                 <img className="rounded-2xl aspect-square" src={'http://localhost:8080/controller/images/' + place.image?.[0]} alt="" srcSet="" />
                 <div className=" absolute left-1 bottom-1 w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center ">

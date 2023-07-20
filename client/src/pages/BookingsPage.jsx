@@ -13,16 +13,16 @@ export default function BookingsPage() {
     }, []);
     return (
         <>
-            <div className="px-2 md:px-10 lg:grid-cols-2 ">
+            <div className="sm:px-2 md:px-10 lg:grid-cols-2 ">
                 <NavLinks />
                 <div className="lg:grid grid-cols-2 gap-4 mt-8">
                     {Bookings.length > 0 && Bookings.map((booking) => (
-                        <Link to={'/account/bookings/'+booking._id} className="flex  gap-4 bg-gray-50 rounded-2xl my-2 p-2">
+                        <div className="flex  gap-4 bg-gray-50 rounded-2xl my-2 p-2">
                             <div className="w-48">
                                 < PlaceImage place={booking.place} />
                             </div>
 
-                            <div className="py-2 capitalize grow ">
+                            <div className="py-2 capitalize grow " key={booking._id}>
                                 <h2 className="text-md font-semibold">{booking.place.title}</h2>
                                 <div className=" flex items-center gap-2 border-t mt-2 py-2 border-gray-700">
                                     <div className="flex gap-1 items-center">
@@ -61,10 +61,10 @@ export default function BookingsPage() {
                                      total Price: ${booking.price}
                                      </span>
                                     </div>
-
+                                    <Link to={'/account/bookings/'+ booking._id} className="text-primary cursor-pointer">proceed to payment <span></span></Link>
                                 </div>
                             </div>
-                        </Link>
+                        </div>
                     ))}
                 
                 </div>
