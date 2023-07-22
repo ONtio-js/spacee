@@ -21,5 +21,8 @@ app.use(cors({
     // secure: true
 }));
 app.use(routes)
+app.get('/',(req,res) => {
+    res.status(200).json('welcome to spacee');
+})
 connectDB;
 app.listen(PORT);
