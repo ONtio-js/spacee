@@ -16,7 +16,7 @@ const ProfileEdit = ({ open, onClose }) => {
 
                 </svg>
                 <input type="file" id='file' className='let-0 absolute z-1 opacity-0' />
-                <label htmlFor="file" className='flex flex-col capitalize text-center font-semibold bg-gray-300 w-full p-4 pt-1 rounded-b-[10px]'>
+                <label htmlFor="file" className='flex flex-col capitalize cursor-pointer text-center font-semibold bg-gray-300 w-full p-4 pt-1 rounded-b-[10px]'>
                   add picture
                 </label>
               </div>
