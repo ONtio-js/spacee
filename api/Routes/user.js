@@ -9,6 +9,6 @@ userRouter.get('/profile',userController.getProfile);
 userRouter.patch('/profile',userController.updateProfile);
 userRouter.patch('/password',userController.inAccountPasswordUpdate);
 userRouter.patch('/Profile-image',photoMiddleware.array('profile',1),userController.uploadUserProfileImage);
-userRouter.post('/profile',userController.deleteAccount);
+userRouter.delete('/profile',userController.deleteAccount);
 
 module.exports = userRouter;

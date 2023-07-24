@@ -1,4 +1,3 @@
-const { set } = require('mongoose');
 const User = require('../model/user');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
@@ -6,6 +5,12 @@ const fs = require('fs');
 // const userAuthenticator = require('../utils/JwtAuthenticator');
 require('dotenv').config();
 const JWT_SECRET_KEY  = process.env.JWT_SECRET_KEY;
+/**
+ * getprofile - return the user's profile information
+ * @param {cookies} req 
+ * @param {user} res 
+ * @return - return the profile information 
+ */
 const getProfile = async (req, res) => {
     const {token} = req.cookies;
     if(token) {
@@ -21,6 +26,13 @@ const getProfile = async (req, res) => {
     }
 }
 
+
+/**
+ * uploadUserProfileImage - upload a user profile image
+ * @param {files} req 
+ * @param {uploadedFiles} res 
+ * @returns 
+ */
 const uploadUserProfileImage = (req, res) => {
     const uploadedFiles = [];
     dir =`${__dirname}/profile/images/`;
@@ -33,7 +45,17 @@ const uploadUserProfileImage = (req, res) => {
         uploadedFiles.push(newName);
         };
         res.status(200).json(uploadedFiles);
-    }
+    };
+
+/**
+ *  updateProfile - update user's profile information
+ * @param {cookies,
+ * body:{firstName,profileImage,
+ * lastName,phone,occupation,homeAddress,
+ * website}} req 
+ * @param {status} res status and message 
+ * @returns {status} status code
+ */
 const updateProfile = async (req, res) => {
     const {token} = req.cookies;
      try {
@@ -64,6 +86,12 @@ const updateProfile = async (req, res) => {
      }
 };
 
+/**
+ * inAccountPasswordUpdate - changes authenticated user's password
+ * @param {cookies,body:{currentPassword,newPassword}} req 
+ * @param {status} res status and message 
+ * @returns {status} status code
+ */
 const inAccountPasswordUpdate = async (req, res) => {
     const {token} = req.cookies;
     const saltRound = 10;
@@ -85,8 +113,8 @@ const inAccountPasswordUpdate = async (req, res) => {
             });
         }
 
-        const passwordCompare = await bcrypt.compare(currentPassword, storedUser.password);
-        if(!passwordCompare){
+        const comparePassword = await bcrypt.compare(currentPassword, storedUser.password);
+        if(!comparePassword){
             return res.status(404).json({
                 status:'failure',
                 message:'current password mismatch'
@@ -106,15 +134,26 @@ const inAccountPasswordUpdate = async (req, res) => {
     }
 };
 
+
+/**
+ * deleteAccount - delete authenticated account
+ * @param {cookies} req 
+ * @param {status} res status and message 
+ * @returns {status} status code
+ */
 const deleteAccount = async (req, res) => {
     const {token} = req.cookies;
     const verify = await jwt.verify(token,JWT_SECRET_KEY);
     if(!verify) {
         return res.status(401).json({status:'failure',message:"unauthorized action"});
+    };
+    const user = await User.findById(verify.id);
+    if(!user){
+        return res.status(404).json({status:'failure',message:"user not found"});
     }
     await User.deleteOne({_id:verify.id});
     res.status(204).json({status:'success',message:"account deleted successfully"});
-}
+};
 module.exports = {
     getProfile: getProfile,
     updateProfile,
