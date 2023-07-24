@@ -62,7 +62,7 @@ const updateProfile = async (req, res) => {
             message:error.message
         })
      }
-}
+};
 
 const inAccountPasswordUpdate = async (req, res) => {
     const {token} = req.cookies;
@@ -104,10 +104,21 @@ const inAccountPasswordUpdate = async (req, res) => {
             message: error.message
         })
     }
+};
+
+const deleteAccount = async (req, res) => {
+    const {token} = req.cookies;
+    const verify = await jwt.verify(token,JWT_SECRET_KEY);
+    if(!verify) {
+        return res.status(401).json({status:'failure',message:"unauthorized action"});
+    }
+    await User.deleteOne({_id:verify.id});
+    res.status(204).json({status:'success',message:"account deleted successfully"});
 }
 module.exports = {
     getProfile: getProfile,
     updateProfile,
     inAccountPasswordUpdate,
-    uploadUserProfileImage
+    uploadUserProfileImage,
+    deleteAccount
 }
