@@ -1,5 +1,5 @@
 import axios from "axios";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useLayoutEffect, useState } from "react";
 
 export const UserContext = createContext({});
 
@@ -14,7 +14,8 @@ export function UserContextProvider({children}) {
                 setReady(true);
             });
         }
-    },[]);
+    },[user]);
+
     return (
         <UserContext.Provider value ={{user,setUser,ready,open,setOpen}}>
             {children}

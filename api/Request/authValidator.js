@@ -2,7 +2,7 @@ const {check} = require('express-validator');
 const userModel = require('../model/user');
 
 const signUpRules = [
-    check('name',"provide your full name").notEmpty().escape(),
+    check('firstName',"provide your full name").notEmpty().escape(),
     check('email', "please provide a valid email").notEmpty().escape().trim().isEmail(),
     check('email').custom(async email => {
         const user = await userModel.findOne({ email: email});

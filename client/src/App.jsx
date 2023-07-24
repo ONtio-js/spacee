@@ -15,7 +15,7 @@ import PlacePage from './pages/PlacePage';
 import BookingPage from './pages/BookingPage';
 import VerificationPage from './pages/VerificationPage';
 
-axios.defaults.baseURL = 'http://localhost:8080';
+axios.defaults.baseURL = 'http://localhost:8080/api/v1';
 axios.defaults.withCredentials = true;
 
 function App() {

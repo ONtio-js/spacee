@@ -10,17 +10,17 @@ const PORT = process.env.PORT || 8080;
 const app = express();
 
 
-app.use(express.json());
+app.use(express.json({limit:'50mb'}));
 app.use(cookieParser());
 app.use('/controller/images', express.static((__dirname +'/controller/images')));
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true,limit:'50mb' }));
 app.use(cors({
     credentials: true,
     origin: 'http://localhost:5173',
     // sameSites: true,
     // secure: true
 }));
-app.use(routes)
+app.use('/api/v1/',routes)
 app.get('/',(req,res) => {
     res.status(200).json('welcome to spacee');
 })

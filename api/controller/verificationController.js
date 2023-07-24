@@ -1,32 +1,52 @@
 const userModel = require('../model/user');
 const verificationModel = require('../model/userVerification');
 const jwt = require('jsonwebtoken');
+const url = require('url');
+const sendEmail = require('./sendEmail/verificationMail');
 require('dotenv').config();
+
+const BASE_URL = process.env.BASE_URL
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY
 
 const sendVerificationRequest = async (req, res) => {
    try {
-    const {signUpToken} = req.cookies();
+    const {signUpToken} = req.cookies;
     const userDat = await jwt.verify(signUpToken,JWT_SECRET_KEY);
-    let token = Math.floor(Math.random() * new Date()).toString().slice(0,4);
+    const OTP = Math.floor(Math.random() * new Date()).toString().slice(0,4);
     await verificationModel.create({
         user: userDat.id,
-        verificationToken:token
+        verificationToken:OTP
     });
-    res.status(200).json('ok');
+    sendEmail(userDat.email,`${BASE_URL}/verification/?id=${userDat.id}`,OTP);
+    res.status(200).json({
+        status:'success',
+        message: 'Verification code sent'
+    });
+
    } catch (error) {
-    res.status(500).json({message: error.message});
+    res.status(500).json({
+        status:'failure',
+        message: error.message});
    }
 
 };
 const verifyUser = async (req, res) => {
-    const {token,id} = req.body;
+    const id = req.query.id;
+    const {token} = req.body;
     try {
        const user = await verificationModel.findOne({user: id});
-        token !== user.verificationToken ? res.status(403).json({message:'invalid verification Token'}) :
-        (new Date() - user.created_at) > 60*60 ? res.status(403).json({message:'Expired verification Token'}) :
-        await userModel.findAndUpdate({user:id},{isVerified:true});
-        res.status(201).json('ok')
+        if(token !== user.verificationToken){
+            res.status(400).json({satus: 'failure',message:'invalid verification Token'});
+            return;
+        } else if((Date.now().valueOf() - new Date(user.createdAt).valueOf())/(1000*60*60) > 1){
+            res.status(400).json({status:'failure',message:'Expired verification Token'})
+        }
+        await userModel.updateOne({_id:id},{isVerified:true});
+        console.log(user.createdAt);
+        res.status(201).json({
+            status:'success',
+            message:'Verification successful'
+        })
     } catch (error) {
        res.status(500).json({message: error.message}); 
     }

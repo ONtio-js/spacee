@@ -9,7 +9,7 @@ const transporter = nodeMailer.createTransport({
     }
 });
 
-const iniateMailsending = (recipientMail,link,otp) => {
+const iniateMailsending = (recipientMail,link,otp=null) => {
     fs.readFile(__dirname+'/templates/verification.html', "utf8", (error, data) => {
         if (error) throw error;
         let template = handlebar.compile(data);

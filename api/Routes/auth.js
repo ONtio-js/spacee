@@ -11,6 +11,9 @@ authRouter
 .post('/register',signUpRules,authContoller.register)
 .post('/login',loginRules,authContoller.login)
 .post('/logout',authContoller.logout)
-// .patch('/email-verification',authContoller.verifyEmail);
+.post('/request-password-reset-link',authContoller.requestPasswordResetLink)
+.patch('/email-verification',verificationController.verifyUser)
+.patch('/reset-password',authContoller.resetPassword)
+.post('/email-verification-request',verificationController.sendVerificationRequest);
 
 module.exports = authRouter;

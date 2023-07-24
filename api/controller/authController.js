@@ -10,26 +10,27 @@ const BASE_URL = process.env.BASE_URL
 const register = async (req, res) => {
     const { name, email, password } = req.body;
     const errors = validationResult(req);
+    const saltround = 10;
     if (!errors.isEmpty()) {
        res.status(400).json({ message: errors.array() });
        return;
     }
     try {
-        let hashedPassword = await bcrypt.hash(password, 10)
+        let hashedPassword = await bcrypt.hash(password, saltround)
         let OTP = Math.floor(Math.random() * new Date()).toString().slice(0,4)
         const user = await User.create({ name: name, email: email, password: hashedPassword});
        await verificationModel.create({
             user:user._id,
             verificationToken: OTP
         })
-        sendMail(email,`${BASE_URL}/verification/${OTP}`,OTP);
-        const signUpToken = await jwt.sign({id:user._id},jwt_secret)
-        res.status(201).cookie('signUpToken',signUpToken).json({ message: "User created successfully" });
+        sendMail(email,`${BASE_URL}/verification/?id=${user._id}`,OTP);
+        const signUpToken = await jwt.sign({id:user._id,email:user.email},jwt_secret)
+        res.status(201).cookie('signUpToken',signUpToken).json({status:'success', message: "User created successfully" });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 
-}
+};
 const login = async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -51,13 +52,43 @@ const login = async (req, res) => {
     } catch (error) {
          res.status(500).json({ message: error.message });
     }
-}
+};
 const logout = (req, res) => {
-    res.cookie("token", "").json(true);
-}
-
+    res.cookie("token", "").json({
+        status:'success',
+        message: 'logout successfully'
+    });
+};
+const requestPasswordResetLink = async (req, res) => {
+    const {email} = req.body;
+    const user = await User.findOne({email});
+    if(!user){
+        return res.status(404).json({status:"failure",message:'user not found'});
+    }
+    sendMail(email,`${BASE_URL}/reset-password/?id=${user._id}`);
+    res.status(200).json({status:"success",message:'password reset link was sent successfully'});
+};
+const resetPassword = async (req, res) => {
+    const {newPassword,id} = req.body;
+    const salt = 10;
+    try {
+        const password = await bcrypt.hash(newPassword,salt);
+       await User.updateOne({_id: id},{password:password})
+        res.status(200).json({
+            status: 'success',
+            message: 'password updated successfully'
+        })
+    } catch (error) {
+        res.status(500).json({
+            status:'failure',
+            message: error.message
+        })
+    }   
+};
 module.exports = {
     register: register,
     login: login,
     logout: logout,
+    requestPasswordResetLink,
+    resetPassword
 }

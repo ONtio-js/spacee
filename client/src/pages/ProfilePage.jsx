@@ -117,12 +117,12 @@ export default function ProfilePage() {
         </div>
         <div className="bg-gray-50/50 -ml-8 md:pl-10 p-4 rounded-r-[20px] flex flex-col gap-8">
           <div className="flex flex-col gap-6  ">
-            <div className="flex items- gap-6 border-b-2 pb-3 border-gray-300">
+            <div className="flex items-center md:gap-16 gap-6 border-b-2 pb-3 border-gray-300">
               <div>
-                <h1 className="flex mt-3 items-center gap-1 font-bold capitalize text-gray-700 text-lg ">{user?.name} <span className="text-blue-500 text-sm"><MdVerified /></span></h1>
-                <h1 className="text-[18px] font-semibold capitalize text-primary/70">{user?.occupation} engineer</h1>
+                <h1 className="flex mt-3 items-center gap-1 font-bold capitalize text-gray-700 text-lg ">{`${user?.lastName} ${user?.firstName}`} <span className="text-blue-500 text-sm"><MdVerified /></span></h1>
+                <h1 className="text-[18px] font-semibold capitalize text-primary/70">{user?.occupation}</h1>
               </div>
-              <h1 className="flex items-center gap-1 capitalize text-[18px]"> <span className="text-primary/70 text-2xl"><HiLocationMarker /></span>{user?.address} Abuja</h1>
+              <h1 className="flex items-center gap-1  capitalize text-[18px]"> <span className="text-primary/70 text-2xl"><HiLocationMarker /></span>{user?.address} Abuja</h1>
             </div>
             <div className="">
               <h1 className="capitalize font-medium py-1">user rating</h1>
@@ -151,10 +151,10 @@ export default function ProfilePage() {
             <div>
               <div className="flex flex-col gap-4 mt-4">
                 <h1 className="uppercase font-semibold text-gray-700/70 mt-10">contact information</h1>
-                <h1 className="text-primary/70 flex gap-5 items-center"><span className="font-semibold capitalize text-lg text-black/70 w-[20%]">Phone</span>{user?.phone}+23481186370</h1>
-                <h1 className="flex gap-5 items-center"><span className="font-semibold capitalize text-lg text-black/70 w-[20%]">address</span>{user?.address}No.2 guzape layout, abuja Nigeria</h1>
+                <h1 className="text-primary/70 flex gap-5 items-center"><span className="font-semibold capitalize text-lg text-black/70 w-[20%]">Phone</span>{user?.phone}</h1>
+                <h1 className="flex gap-5 items-center"><span className="font-semibold capitalize text-lg text-black/70 w-[20%]">address</span>{user?.homeAddress}</h1>
                 <h1 className=" text-primary/70 flex gap-5 items-center"><span className="truncate font-semibold capitalize text-lg text-black/70 w-[20%] ">Email</span>{user?.email}</h1>
-                <h1 className="flex gap-5 items-center text-primary/70"><span className="font-semibold capitalize text-lg text-black/70 w-[20%]">website</span>{user?.site}www.devontio.me</h1>
+                <h1 className="flex gap-5 items-center text-primary/70"><a className="font-semibold capitalize text-lg text-black/70 w-[20%]" href={user?.website}>website</a>{user?.website}</h1>
               </div>
               <div>
                 {/* social handles */}
