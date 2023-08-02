@@ -6,7 +6,7 @@ import Logo from "./components/Logo";
 import axios from "axios";
 import searchIllustration from "./assets/search.png";
 export default function Header() {
-  const { user, isOpen, setOpen } = useContext(UserContext)
+  const { user, open, setOpen } = useContext(UserContext)
   const [searchToggle, setSearchToggle] = useState(false);
   return (
     <header className=' fixed top-0 w-full z-50 bg-white flex justify-between border-b-2 pb-4 px-4 md:px-10'>
@@ -35,7 +35,7 @@ export default function Header() {
         </Link>
         <span className={!user ? "" : "block absolute w-3 h-3 bg-green-500 right-1 rounded-full "}></span>
       </div>
-      < AuthModal open={isOpen} onclose={() => setOpen(prev => !prev)} />
+      < AuthModal open={open} onclose={() => setOpen(prev => !prev)} />
       <SearchBox open={searchToggle} onclose={() => setSearchToggle(prev => !prev)} />
     </header>
   );
