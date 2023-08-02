@@ -106,9 +106,38 @@ const retrieveAllPlaces = async(req, res) => {
     const places = await Place.find();
     res.status(200).json(places);
 }
+
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
+const sortPlaces = async(req, res) => {
+
+};
+
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
+const searchPlaces = async(req, res) => {
+
+};
+
+
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
+const filterPlaces = async(req, res) => {
+
+};
 module.exports = {
                 imageDownload, uploadFiles, 
                 addNewPlace,retrieveUserPlaces,
                 retrieveAUserplace,updateAplace,
-                retrieveAllPlaces,showPlace
+                retrieveAllPlaces,showPlace,
+                searchPlaces,filterPlaces,sortPlaces
                 };

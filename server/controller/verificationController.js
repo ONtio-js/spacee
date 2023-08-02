@@ -42,13 +42,15 @@ const verifyUser = async (req, res) => {
             res.status(400).json({status:'failure',message:'Expired verification Token'})
         }
         await userModel.updateOne({_id:id},{isVerified:true});
-        console.log(user.createdAt);
+        await verificationModel.deleteMany({user:id});
         res.status(201).json({
             status:'success',
             message:'Verification successful'
         })
     } catch (error) {
-       res.status(500).json({message: error.message}); 
+       res.status(500).json({
+        status:"failure",
+        message: error.message}); 
     }
 }
 

@@ -63,8 +63,8 @@ export default function indexpage() {
             </div>
         </div>
        <div className="grid grid-cols-2 gap-x-6 gap-y-8 md:grid-cols-3 lg:grid-cols-4 px-4 md:px-10">
-          {places.length > 0 && places.map(place => (
-            <Link to={'/place/' + place._id} key={place._id} className="bg-gray-50/50 border-b-2 border-gray-400 p-2 rounded-xl">
+          {places.length > 0? places.map(place => (
+            <Link to={'/places/' + place._id} key={place._id} className="bg-gray-50/50 border-b-2 border-gray-400 p-2 rounded-xl">
               <div className="relative bg-gray-500  flex mb-2 rounded-2xl">
                 <img className="rounded-2xl aspect-square" src={'http://localhost:8080/controller/images/' + place.image?.[0]} alt="" srcSet="" />
                 <div className=" absolute left-1 bottom-1 w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center ">
@@ -78,7 +78,18 @@ export default function indexpage() {
               <h1><span className="font-bold mt-1">${place.price}</span> per night</h1>
             </Link>
 
-          ))}
+          )):(
+            <>
+            <div className="absolute mt-10 w-[90%] flex flex-col items-center justify-center h-[50%]">
+               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="gray" className="w-32 h-32 animate-ping">
+          <path d="M19.006 3.705a.75.75 0 00-.512-1.41L6 6.838V3a.75.75 0 00-.75-.75h-1.5A.75.75 0 003 3v4.93l-1.006.365a.75.75 0 00.512 1.41l16.5-6z" />
+          <path fillRule="evenodd" d="M3.019 11.115L18 5.667V9.09l4.006 1.456a.75.75 0 11-.512 1.41l-.494-.18v8.475h.75a.75.75 0 010 1.5H2.25a.75.75 0 010-1.5H3v-9.129l.019-.006zM18 20.25v-9.565l1.5.545v9.02H18zm-9-6a.75.75 0 00-.75.75v4.5c0 .414.336.75.75.75h3a.75.75 0 00.75-.75V15a.75.75 0 00-.75-.75H9z" clipRule="evenodd" />
+        </svg>
+        <p className=" mt-20 font-semibold capitalize text-gray-500 text-center">connecting to server.... <br className=""/>please wait</p>
+            </div>
+            
+            </>
+          )}
 
         </div>
        </div>

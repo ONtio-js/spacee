@@ -10,7 +10,7 @@ placeRouter.get('/places',placeController.retrieveUserPlaces);
 placeRouter.get('/places/:id',placeController.retrieveAUserplace);
 placeRouter.put('/places/:id',placeController.updateAplace);
 placeRouter.get('/allplaces',placeController.retrieveAllPlaces);
-placeRouter.get('/place/:id',placeController.showPlace);
+placeRouter.get('/places/:id',placeController.showPlace);
 
 
 
