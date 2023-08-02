@@ -11,6 +11,7 @@ placeRouter.get('/places/:id',placeController.retrieveAUserplace);
 placeRouter.put('/places/:id',placeController.updateAplace);
 placeRouter.get('/allplaces',placeController.retrieveAllPlaces);
 placeRouter.get('/places/:id',placeController.showPlace);
+placeRouter.get('/searchplaces/:value',placeController.searchPlaces);
 
 
 

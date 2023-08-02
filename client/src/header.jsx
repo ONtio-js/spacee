@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import { UserContext } from "./context/userContext"
 import AuthModal from "./pages/AuthSync";
 import Logo from "./components/Logo";
+import axios from "axios";
+import searchIllustration from "./assets/search.png";
 export default function Header() {
-  const { user, open, setOpen } = useContext(UserContext)
-  const [searchToggle,setSearchToggle] = useState(false);
+  const { user, isOpen, setOpen } = useContext(UserContext)
+  const [searchToggle, setSearchToggle] = useState(false);
   return (
     <header className=' fixed top-0 w-full z-50 bg-white flex justify-between border-b-2 pb-4 px-4 md:px-10'>
       <Logo />
@@ -15,7 +17,7 @@ export default function Header() {
         <div>any week</div>
         <div className="border-l border-gray-300"></div>
         <div>add guest</div>
-        <button onClick={() => setSearchToggle(true)} className='bg-primary text-white px-1 rounded-full flex items-center justify-center '><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+        <button onClick={() => setSearchToggle(true)} className='bg-transparent text-white px-1 rounded-full flex items-center justify-center '><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#FF55BB" className="w-6 h-6">
           <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
         </svg>
         </button>
@@ -33,45 +35,66 @@ export default function Header() {
         </Link>
         <span className={!user ? "" : "block absolute w-3 h-3 bg-green-500 right-1 rounded-full "}></span>
       </div>
-      < AuthModal open={open} onclose={() => setOpen(prev => !prev)} />
+      < AuthModal open={isOpen} onclose={() => setOpen(prev => !prev)} />
       <SearchBox open={searchToggle} onclose={() => setSearchToggle(prev => !prev)} />
     </header>
   );
 }
 
-const SearchBox = ({open,onclose}) => {
-  const [result,setResult] = useState([]);
-  const [input,setInput] = useState('');
- const fetchData = (value) =>{
-        setResult(value);
- }
- const handleInput = (value) => {
-  setInput(value);
-  fetchData(value);
- }
+const SearchBox = ({ open, onclose }) => {
+  const [result, setResult] = useState([]);
+  const [input, setInput] = useState('');
+  const fetchData = async (value) => {
+    if (!value) return;
+    try {
+      const { data } = await axios.get('/searchplaces/' + value);
+      setResult(data.result);
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+  const handleInput = (value) => {
+    if (!value) setResult([]);
+    setInput(value);
+    fetchData(value);
+  }
   return (
     <div className={`fixed  inset-0 flex justify-center items-center py-20 px-10 transition-all duration-700 w-[100vw] h-[100vh] ${open ? "translate-y-0 bg-black/20" : "translate-y-[100vh]"}`} onClick={onclose}>
-    <div onClick={e => e.stopPropagation()} className=" bg-white shadow-md rounded-md max-w-[600px] w-2/3 h-2/3 py-4 transition-all mt-16 p-5 pt-20 flex flex-col gap-6 items-center">
-     <h1 className="flex"> <Logo />&trade;</h1>
-    <div className="w-full">
-    <div className="flex items-center gap-2 border px-4 rounded-[50px] w-full">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-        </svg>
-      <input type="text" value={input} onChange={(e) => handleInput(e.target.value)} className="border-none" placeholder="search for a house" />
-    </div>
-    <div className="w-full max-h-[200px] overflow-y-scroll no-scrollbar  p-2  ">
-    <ul>
-      
-        <li className=" py-1 px-2 text-gray-600 mt-1 text-[18px]   bg-gray-50 rounded-[50px]"> {result}</li>
-     
-      
-    </ul>
-    </div>
-    </div>
+      <div onClick={e => e.stopPropagation()} className=" bg-white shadow-md rounded-md max-w-[600px] w-2/3 h-2/3 py-4 transition-all mt-16 p-5 pt-20 flex flex-col gap-6 items-center">
+        <h1 className="flex"> <Logo />&trade;</h1>
+        <div className="w-full">
+          <div className="flex items-center gap-2 border px-4 rounded-[50px] w-full">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+            </svg>
+            <input type="text" value={input} onChange={(e) => handleInput(e.target.value)} className="border-none" placeholder="search for a house" />
+          </div>
+          {result.length ? (
+            <>
+              {result.length > 0 && (
+                <div className="w-full max-h-[200px] overflow-y-scroll no-scrollbar  p-2   ">
+                  <ul className="  ">
+
+                    {result.map((value) => (
+                      <Link onClick={onclose} to={'/places/' + value._id} key={value._id} className="block py-1 px-2 text-gray-600 mt-1 text-[18px]   bg-gray-50 rounded-[50px]"> {value.title}</Link>
+                    ))}
+
+
+                  </ul>
+                </div>
+              )}
+            </>
+          ) : (
+            <div className="w-full flex justify-center">
+              <img src={searchIllustration} alt="search-illustration" className="h-[200px]" />
+            </div>
+          )}
+
+
+        </div>
+
+      </div>
 
     </div>
-    
-  </div>
   )
 }

@@ -2,6 +2,7 @@ const imageDownloader = require('image-downloader');
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const Place = require('../model/places');
+const placeModel = require('../model/places');
 require('dotenv').config();
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY 
 
@@ -122,6 +123,22 @@ const sortPlaces = async(req, res) => {
  * @param {*} res 
  */
 const searchPlaces = async(req, res) => {
+   try {
+    const {value} =req.params;
+    const places = await placeModel.find();
+    const result = places.filter((place) => {
+      return (
+         place.title && place.title.toLowerCase().includes(value)
+      );
+    })
+    if (result.length === 0) {
+       return  res.status(404).json({status:'failure',message:'not found'});
+    }
+   return res.status(200).json({status:'success',result});
+   } catch (error) {
+    res.status(500).json({ status:'failure', message: error.message});
+   }
+
 
 };
 
