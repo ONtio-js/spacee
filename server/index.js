@@ -4,6 +4,7 @@ const connectDB = require('./database/db');
 const routes = require('./Routes/index');
 const cookieParser = require('cookie-parser');
 const path = require('path');
+const { log } = require('console');
 require('dotenv').config();
 const PORT = process.env.PORT || 8080;
 
@@ -21,7 +22,7 @@ app.use(cors({
     // secure: true
 }));
 app.use('/api/v1/',routes)
-app.get('/',(req,res) => {
+app.get('/api/v1/',(req,res) => {
     res.status(200).json('welcome to spacee');
 })
 connectDB;

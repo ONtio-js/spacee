@@ -3,6 +3,7 @@ const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const Place = require('../model/places');
 const placeModel = require('../model/places');
+const { title } = require('process');
 require('dotenv').config();
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY 
 
@@ -121,16 +122,16 @@ const sortPlaces = async(req, res) => {
  * 
  * @param {*} req 
  * @param {*} res 
+ * keys.some((key) => place[key] && place[key].toLowerCase().includes(value)))
+ * const result = await placeModel.find({title:{$regex: value,$options:'i'}});
  */
 const searchPlaces = async(req, res) => {
    try {
+    const keys = ['title', 'Description', 'address', 'perks']
     const {value} =req.params;
     const places = await placeModel.find();
-    const result = places.filter((place) => {
-      return (
-         place.title && place.title.toLowerCase().includes(value)
-      );
-    })
+    const result = places.filter((place) => place.title.includes(value));
+    console.log(result);
     if (result.length === 0) {
        return  res.status(404).json({status:'failure',message:'not found'});
     }

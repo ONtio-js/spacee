@@ -23,7 +23,7 @@ export default function ProfilePage() {
     <div className="mb-10 ">
       < NavLinks />
      
-      <div className="grid grid-cols-[1.5fr,2fr] lg:w-[70vw] mx-auto rounded-[20px] mt-4 mb-10 px-10">
+      <div className="grid grid-cols-[1.5fr,2fr] lg:w-[70vw] mx-auto rounded-[20px] mt-4 mb-10 px-10 w-full">
         <div className="absolute  right-7 md:right-12 lg:right-[18vw] lg:mt-2 mt-1 bg-gray-400/30 cursor-pointer p-2 rounded-full">
           <span onClick={() => setOpen(prev => !prev)} className="text-primary"><MdEdit /></span>
         </div>
@@ -115,9 +115,9 @@ export default function ProfilePage() {
             </div>
           </div>
         </div>
-        <div className="bg-gray-50/50 -ml-4 md:-ml-0 md:pl-10 p-4 rounded-[20px] sm:rounded-r-[20px] flex flex-col gap-8">
-          <div className="flex flex-col gap-6  ">
-            <div className="flex items-center md:gap-16 gap-6 border-b-2 pb-3 border-gray-300">
+        <div className="bg-gray-50/50 w-[90vw] md:w-full -ml-4 md:-ml-0 md:pl-10 p-4 rounded-[20px] sm:rounded-r-[20px] flex flex-col gap-8">
+          <div className="flex flex-col gap-6 w-full  ">
+            <div className="flex items-center md:gap-16 w-full gap-6 border-b-2 pb-3 border-gray-300">
               <div>
                 <h1 className="flex mt-3 items-center gap-1 font-bold capitalize text-gray-700 text-lg ">{`${user?.lastName} ${user?.firstName}`} {user?.isVerified && (
                   <span className="text-blue-500 text-sm"><MdVerified /></span>

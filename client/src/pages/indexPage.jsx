@@ -2,9 +2,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {MdVerified} from 'react-icons/md';
+import ToggglBar from "../components/ToggglBar";
 
 export default function indexpage() {
   const [places, setPlaces] = useState([]);
+  const [addons, setAddons] = useState(false);
+ 
   useEffect(() => {
     axios.get('/allplaces').then(response => {
      
@@ -55,13 +58,7 @@ export default function indexpage() {
           </label>
         </div>
        <div className="my-32">
-        <div className="flex justify-around items-center border max-w-lg border-gray-400 w-5/6 md:w-2/3 px-2 md:px-5 mx-auto gap-4 rounded-xl py-1 md:py-4">
-          <h1 className="text-xs md:text-lg font-semibold capitalize border-r-2 pr-4">display total price</h1>
-          <h1 className="text-gray-700 text-xs">Includes all fees, before taxes</h1>
-          <div className="w-8 md:w-16 py-[1px] px-[1px] h-4 md:h-7 flex items-center rounded-3xl   border-[1px] border-gray-400 ">
-            <div className=" bg-primary w-4  h-4 md:w-6 md:h-6 rounded-full"></div>
-            </div>
-        </div>
+        <ToggglBar switchAddons={() => setAddons(prev => !prev)} />
        <div className="grid grid-cols-2 gap-x-6 gap-y-8 md:grid-cols-3 lg:grid-cols-4 px-4 md:px-10">
           {places.length > 0? places.map(place => (
             <Link to={'/places/' + place._id} key={place._id} className="bg-gray-50/50 border-b-2 border-gray-400 p-2 rounded-xl">
@@ -75,7 +72,7 @@ export default function indexpage() {
 
               <h3 className="font-bold truncate">{place.addresses}</h3>
               <h2 className="text-sm mt-2">{place.title}</h2>
-              <h1><span className="font-bold mt-1">${place.price}</span> per night</h1>
+              <h1><span className="font-bold mt-1">${addons?place.price+17:place.price}</span> per night</h1>
             </Link>
 
           )):(

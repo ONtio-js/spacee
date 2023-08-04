@@ -75,7 +75,7 @@ const updateProfile = async (req, res) => {
         });
         res.status(201).json({
             status: 'success',
-            messsage: 'profile updated successfully'
+            message: 'profile updated successfully'
         });
 
      } catch (error) {
