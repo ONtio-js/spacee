@@ -7,7 +7,7 @@ const path = require('path');
 const { log } = require('console');
 require('dotenv').config();
 const PORT = process.env.PORT || 8080;
-
+const base_url = process.env.BASE_URL
 const app = express();
 
 
@@ -17,7 +17,7 @@ app.use('/controller/images', express.static((__dirname +'/controller/images')))
 app.use(express.urlencoded({ extended: true,limit:'50mb' }));
 app.use(cors({
     credentials: true,
-    origin: 'http://localhost:5173',
+    origin: base_url ,
     // sameSites: true,
     // secure: true
 }));
