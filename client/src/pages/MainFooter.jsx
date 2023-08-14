@@ -4,7 +4,7 @@ export default function MainFooter({ open, onclose }) {
 
   return (
     <>
-      <div className={`fixed text-xs sm:text-base inset-0 flex  transition-all duration-700 ${open ? "translate-y-0 bg-transparent" : "translate-y-[100vh]"}`} onClick={onclose}>
+      <div className={`fixed text-xs sm:text-base inset-0 flex  transition-all duration-700 ${open ? "translate-y-0 bg-transparent" : "-translate-y-[100vh]"}`} onClick={onclose}>
         <div onClick={e => e.stopPropagation()} className=" bg-white  absolute bottom-0 w-full rounded-t-3xl px-10 transition-all delay-200 shadow-2xl">
           <div>
             <h1 className="cursor-pointer w-4 h-8 p-5 text-2xl text-gray-700" onClick={onclose}><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
