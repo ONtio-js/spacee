@@ -28,7 +28,7 @@ function App() {
         <Route index element={<IndexPage />} />
         <Route path="/register" element={< RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path= "/account/" element = {<ProfilePage />} />
+        <Route path= "/account" element = {<ProfilePage />} />
         <Route path ='/account/places' element = {< PlacesPage />} />
         <Route path ='/account/places/new' element = {< FormPage />} />
        <Route path= "/account/bookings" element = {< BookingsPage />} />
