@@ -54,7 +54,6 @@ export default function FormPage(){
             setPrice(data.price);
         })
     },[id]);
-    console.log(price);
     async function savePlace(ev){
         ev.preventDefault();
         const data = {

@@ -31,18 +31,25 @@ const sendVerificationRequest = async (req, res) => {
 
 };
 const verifyUser = async (req, res) => {
-    const id = req.query.id;
+    const {signUpToken} = req.cookies;
+    const userData = await jwt.verify(signUpToken, JWT_SECRET_KEY); 
     const {token} = req.body;
     try {
-       const user = await verificationModel.findOne({user: id});
+       const user = await verificationModel.findOne({user: userData.id});
         if(token !== user.verificationToken){
-            res.status(400).json({satus: 'failure',message:'invalid verification Token'});
+            res.status(400).json({
+                status: 'failure',
+                message:'invalid verification Token'
+            });
             return;
         } else if((Date.now().valueOf() - new Date(user.createdAt).valueOf())/(1000*60*60) > 1){
-            res.status(400).json({status:'failure',message:'Expired verification Token'})
+            res.status(400).json({
+                status:'failure',
+                message:'Expired verification Token'
+            })
         }
-        await userModel.updateOne({_id:id},{isVerified:true});
-        await verificationModel.deleteMany({user:id});
+        await userModel.updateOne({_id:userData.id},{isVerified:true});
+        await verificationModel.deleteMany({user:userData.id});
         res.status(201).json({
             status:'success',
             message:'Verification successful'

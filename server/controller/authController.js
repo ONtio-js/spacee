@@ -8,7 +8,7 @@ require('dotenv').config();
 const jwt_secret = process.env.JWT_SECRET_KEY || "JUJU445TGY67UHJYXJYXJYXJYXJYXJ"
 const BASE_URL = process.env.BASE_URL
 const register = async (req, res) => {
-    const { name, email, password } = req.body;
+    const { firstName, email, password } = req.body;
     const errors = validationResult(req);
     const saltround = 10;
     if (!errors.isEmpty()) {
@@ -18,7 +18,7 @@ const register = async (req, res) => {
     try {
         let hashedPassword = await bcrypt.hash(password, saltround)
         let OTP = Math.floor(Math.random() * new Date()).toString().slice(0,4)
-        const user = await User.create({ name: name, email: email, password: hashedPassword});
+        const user = await User.create({ firstName: firstName, email: email, password: hashedPassword});
        await verificationModel.create({
             user:user._id,
             verificationToken: OTP

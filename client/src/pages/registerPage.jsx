@@ -9,15 +9,33 @@ export default function RegisterPage() {
     const [password, setPassword] = useState('');
     const [redirect, setRedirect] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
     async function registerUser(ev) {
         ev.preventDefault();
-        try {
-            await axios.post('/register', { password, name, email, confirmPassword });
-            setRedirect('/verification');
+        if(!name && !email && !password){
+            setErrorMessage('all fields are required');
+        }else if(!password){
+            setErrorMessage('Password is required');
         
-        } catch (error) {
-            alert(error.message);
-        }
+        }else if (!/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/.test(password)){
+            setErrorMessage('password must containe at least one uppercase, lowercase,number and special character')
+        }else if(password !== confirmPassword){
+            setErrorMessage('password must match');
+        }else if(!name){
+            setErrorMessage('name is required');
+        }else if (!email){
+            setErrorMessage('email is required');
+        }else if(!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)){
+            setErrorMessage('email must be a valid email address');
+        }else{
+            try {
+                await axios.post('/register', { password, firstName:name, email, confirmPassword });
+                setRedirect('/verification');
+            
+            } catch (error) {
+                alert(error.message);
+            }
+        }  
     }
 if(redirect){
     // setRedirect('')
@@ -28,8 +46,11 @@ if(redirect){
             <div className="-mt-32 px-10" >
                 <form className="max-w-md mx-auto" onSubmit={registerUser}>
                     <h1 className="text-4xl text-center my-4 capitalize">sign up</h1>
+                  {errorMessage && (
+                    <div className="text-center text-lg py-1 text-red-600 capitalize bg-red-600/20 rounded-[10px]">{errorMessage}</div>
+                  )}
                     <input type="text"
-                        placeholder="John Doe"
+                        placeholder="Your First Name"
                         name="name"
                         value={name}
                         onChange={ev => setName(ev.target.value)} />

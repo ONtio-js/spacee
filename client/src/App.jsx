@@ -16,7 +16,7 @@ import BookingPage from './pages/BookingPage';
 import VerificationPage from './pages/VerificationPage';
 import config from './config/config';
 
-axios.defaults.baseURL = config.production.backendUrl;
+axios.defaults.baseURL = config.development.backendUrl;
 axios.defaults.withCredentials = true;
 
 function App() {

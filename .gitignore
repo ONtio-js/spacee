@@ -24,4 +24,4 @@ package-lock.json
 *.sln
 *.env
 *.sw?
-*/image/*
+/image/*
