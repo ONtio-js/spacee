@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {MdVerified} from 'react-icons/md';
 import ToggglBar from "../components/ToggglBar";
+import config from "../config/config";
 
 export default function indexpage() {
   const [places, setPlaces] = useState([]);
@@ -63,7 +64,7 @@ export default function indexpage() {
           {places.length > 0? places.map(place => (
             <Link to={'/places/' + place._id} key={place._id} className="bg-gray-50/50 border-b-2 border-gray-400 p-2 rounded-xl">
               <div className="relative bg-gray-500  flex mb-2 rounded-2xl">
-                <img className="rounded-2xl aspect-square" src={'http://localhost:8080/controller/images/' + place.image?.[0]} alt="" srcSet="" />
+                <img className="rounded-2xl aspect-square" src={config.production.backendUrl+'/controller/images/' + place.image?.[0]} alt="" srcSet="" />
                 <div className=" absolute left-1 bottom-1 w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center ">
                   <img src={'http://localhost:8080/controller/images/' + place.image?.[1]} alt="" className="rounded-full w-full h-full" />
                   <span className="text-blue-500 absolute top-1 -right-1"><MdVerified/></span>

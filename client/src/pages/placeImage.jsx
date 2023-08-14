@@ -1,3 +1,5 @@
+import config from "../config/config";
+
 export default function PlaceImage({place,index=0,className = null}){
     if(!place.image?.length) {
         return ""};
@@ -6,6 +8,6 @@ export default function PlaceImage({place,index=0,className = null}){
     }
     return (
         
-            <img className={className} src={'http://localhost:8080/controller/images/'+place.image[index]} alt="" />
+            <img className={className} src={config.production.backendUrl + '/controller/images/' + place.image[index]} alt="" />
     )
 }
