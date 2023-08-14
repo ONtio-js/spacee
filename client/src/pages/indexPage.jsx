@@ -64,7 +64,7 @@ export default function indexpage() {
           {places.length > 0? places.map(place => (
             <Link to={'/places/' + place._id} key={place._id} className="bg-gray-50/50 border-b-2 border-gray-400 p-2 rounded-xl">
               <div className="relative bg-gray-500  flex mb-2 rounded-2xl">
-                <div className="w-[300px] h-[300px] bg-gray-300 rounded-2xl">
+                <div className="w-[300px] h-[200px] bg-gray-300 rounded-2xl">
                 <img className="rounded-2xl aspect-square" src={config.production.backendUrl+'/controller/images/' + place.image?.[0]} alt="" srcSet="" />
                 </div>
                 <div className=" absolute left-1 bottom-1 w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center ">
