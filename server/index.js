@@ -17,9 +17,9 @@ app.use('/controller/images', express.static((__dirname +'/controller/images')))
 app.use(express.urlencoded({ extended: true,limit:'50mb' }));
 app.use(cors({
     credentials: true,
-    origin: base_url ,
-    // sameSites: true,
-    // secure: true
+    origin: 'https://spacee-nine.vercel.app',
+    sameSites: true,
+    secure: true
 }));
 app.use('/api/v1/',routes)
 app.get('/api/v1/',(req,res) => {
