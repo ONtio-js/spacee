@@ -14,6 +14,12 @@ export default function RegisterPage() {
         ev.preventDefault();
         if(!name && !email && !password){
             setErrorMessage('all fields are required');
+        }else if(!name){
+            setErrorMessage('name is required');
+        }else if (!email){
+            setErrorMessage('email is required');
+        }else if(!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)){
+            setErrorMessage('enter a valid email address');
         }else if(!password){
             setErrorMessage('Password is required');
         
@@ -21,13 +27,8 @@ export default function RegisterPage() {
             setErrorMessage('password must containe at least one uppercase, lowercase,number and special character')
         }else if(password !== confirmPassword){
             setErrorMessage('password must match');
-        }else if(!name){
-            setErrorMessage('name is required');
-        }else if (!email){
-            setErrorMessage('email is required');
-        }else if(!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)){
-            setErrorMessage('email must be a valid email address');
-        }else{
+        }
+        else{
             try {
                 await axios.post('/register', { password, firstName:name, email, confirmPassword });
                 setRedirect('/verification');

@@ -9,17 +9,29 @@ export default function LoginPage(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [redirect, setRedirect] = useState(false);
+    const [message, setMessage] = useState('');
     const{user,setUser,setReady} = useContext(UserContext)
     async function loginHandler(ev){
         ev.preventDefault();
+
         try {
-           const {data} = await axios.post('/login', {email,password});
-           setUser(data);
-            setRedirect(true);
+            if(!email){
+                setMessage("Please enter your email address")
+            }else if(!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)){
+                setMessage("Please enter valid email address")
+            }else if(!password){
+                setMessage("Please enter your password")
+            }else{
+                const {data} = await axios.post('/login', {email,password});
+                console.log(data);
+                setUser(data);
+                 setRedirect(true);
+            }
+        
         } catch (error) {
             console.log("Error: " + error);
         }
-       
+       console.log(message);
     }
     if(user){
         return <Navigate to={'/'} />;
