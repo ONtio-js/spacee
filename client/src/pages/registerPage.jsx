@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
 import { Apple, Google, facebook } from "../assets/img";
+import Loader from '../components/Loader';
 
 export default function RegisterPage() {
     const [name, setName] = useState('');
@@ -10,6 +11,7 @@ export default function RegisterPage() {
     const [redirect, setRedirect] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [loadings, setLoading] = useState(false);
     async function registerUser(ev) {
         ev.preventDefault();
         if(!name && !email && !password){
@@ -29,17 +31,20 @@ export default function RegisterPage() {
             setErrorMessage('password must match');
         }
         else{
+            setErrorMessage('');
+            setLoading(true);
             try {
-                await axios.post('/register', { password, firstName:name, email, confirmPassword });
+                const {data} = await axios.post('/register', { password, firstName:name, email, confirmPassword });
+                
                 setRedirect('/verification');
             
             } catch (error) {
-                alert(error.message);
+                setLoading(false);
+                setErrorMessage(error.response.data.message[0].msg);
             }
         }  
     }
 if(redirect){
-    // setRedirect('')
     return < Navigate to={'/verification'} />;
 }
     return (
@@ -50,28 +55,31 @@ if(redirect){
                   {errorMessage && (
                     <div className="text-center text-lg py-1 text-red-600 capitalize bg-red-600/20 rounded-[10px]">{errorMessage}</div>
                   )}
+                  {loadings && (
+                    <Loader />
+                  )}
                     <input type="text"
                         placeholder="Your First Name"
                         name="name"
                         value={name}
-                        onChange={ev => setName(ev.target.value)} />
+                        onChange={ev =>{setErrorMessage('');setName(ev.target.value)} } />
 
                     <input type="email"
                         placeholder='Example@mail.com'
                         name="email"
                         value={email}
-                        onChange={ev => setEmail(ev.target.value)} />
+                        onChange={ev => {setEmail(ev.target.value);setErrorMessage('')}} />
 
                     <input type="password"
                         placeholder='Password'
                         name="password"
                         value={password}
-                        onChange={ev => setPassword(ev.target.value)} />
+                        onChange={ev => {setPassword(ev.target.value);setErrorMessage('')}} />
                     <input type="password"
                         placeholder='confirm Password'
                         name="password"
                         value={confirmPassword}
-                        onChange={ev => setConfirmPassword(ev.target.value)} />
+                        onChange={ev => {setConfirmPassword(ev.target.value);setErrorMessage('')}} />
 
                     <button className="primary">Register</button>
                     <div className="mt-5">

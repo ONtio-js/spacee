@@ -3,11 +3,12 @@ import { UserContext } from "../context/userContext";
 import { useContext, useState } from "react";
 import axios from "axios";
 export default function AuthModal({ open, onclose }) {
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser,setAuth } = useContext(UserContext);
   const [redirect, setRedirect] = useState('');
 
   async function logout() {
     await axios.post('/logout');
+    setAuth(false);
     setUser(null);
     setRedirect('/');
   }

@@ -3,6 +3,8 @@ const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const Place = require('../model/places');
 const placeModel = require('../model/places');
+const ImageTransformer = require('../utils/ImageTransformer');
+const cloudinary  = require('../utils/fileUpload');
 const { title } = require('process');
 require('dotenv').config();
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY 
@@ -20,17 +22,25 @@ const imageDownload = async (req,res) => {
     res.status(500).json({message:error.message});
    }
 }
-const uploadFiles = (req, res) => {
+const uploadFiles = async (req, res) => {
     const uploadedFiles = [];
-    for (let i = 0; i < req.files.length; i++) {
-        const {path,originalname} = req.files[i];
-        const parts = originalname.split('.');
-        const ext = parts[parts.length - 1];
-        const newName = "photo-"+ Date.now() +"." + ext;
-        fs.renameSync(path, `${__dirname}/images/${newName}`);
-        uploadedFiles.push(newName);
-        };
-        res.status(200).json(uploadedFiles);
+    try {
+        for (let i = 0; i < req.files.length; i++) {
+            const {path,originalname} = req.files[i];
+            const parts = originalname.split('.');
+            const ext = parts[parts.length - 1];
+            const newName = "photo-"+ Date.now() +"." + ext;
+            
+            const result = await cloudinary.uploader.upload(newName,{
+                folder:'spacee/houses'
+            })
+            uploadedFiles.push(result);
+            console.log(result);
+            };
+            res.status(200).json(uploadedFiles);
+    } catch (error) {
+        console.log(error);
+    }
     }
 
 const addNewPlace  = async (req, res) => {

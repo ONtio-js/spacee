@@ -12,7 +12,7 @@ const register = async (req, res) => {
     const errors = validationResult(req);
     const saltround = 10;
     if (!errors.isEmpty()) {
-       res.status(400).json({ message: errors.array() });
+       res.status(400).json({status:'failure', message: errors.array() });
        return;
     }
     try {

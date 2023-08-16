@@ -4,7 +4,6 @@ const connectDB = require('./database/db');
 const routes = require('./Routes/index');
 const cookieParser = require('cookie-parser');
 const path = require('path');
-const { log } = require('console');
 require('dotenv').config();
 const PORT = process.env.PORT || 8080;
 const base_url = process.env.BASE_URL
@@ -17,7 +16,7 @@ app.use('/controller/images', express.static((__dirname +'/controller/images')))
 app.use(express.urlencoded({ extended: true,limit:'50mb' }));
 app.use(cors({
     credentials: true,
-    origin: 'https://spacee-nine.vercel.app',
+    origin: base_url,
     sameSites: true,
     secure: true
 }));

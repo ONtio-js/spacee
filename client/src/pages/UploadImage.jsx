@@ -11,11 +11,18 @@ export default function UploadImage({ addedPhoto, onChange }) {
         onChange(prev => [data, ...prev]);
         setPhotolinks('');
     };
+    const toBase64 = file => new Promise((resolve, reject) => {
+        const reader = new FileReader;
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
     async function uploadPhoto(ev) {
         const file = ev.target.files;
         const formData = new FormData();
         for (let i = 0; i < file.length; i++) {
-            formData.append('photos', file[i]);
+            const result = await toBase64(file[i]);
+            formData.append('photos', result);
         }
         const response = await axios.post('/upload', formData, {
             headers: {
