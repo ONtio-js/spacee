@@ -27,7 +27,7 @@ const register = async (req, res) => {
         const signUpToken = await jwt.sign({id:user._id,email:user.email},jwt_secret)
         res.status(201).cookie('signUpToken',signUpToken).json({status:'success', message: "User created successfully" });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({status:'failure', message: error.message });
     }
 
 };
@@ -40,17 +40,20 @@ const login = async (req, res) => {
     try {
         const { email, password } = req.body;
         const user = await User.findOne({ email: email});
+        if(!user){
+            res.status(404).json({status:'failure', message:'Email not registered'});
+        }
         const passwordCheck = await bcrypt.compare(password, user.password);
         if (passwordCheck) {
             const token = await jwt.sign({ email: user.email, id: user._id, name: user.name }, jwt_secret);
             res.status(201)
                 .cookie("token", token, { maxAge: 1000 * (60 * 60 * 24), httpOnly: true })
-                .json(user);
+                .json({status: 'success', message: user});
         } else {
-             res.status(403).json({ message: "Incorrect credentials" });
+             res.status(403).json({status: 'failure', message: "Incorrect credentials" });
         }
     } catch (error) {
-         res.status(500).json({ message: error.message });
+         res.status(500).json({status:'failure', message: error.message });
     }
 };
 const logout = (req, res) => {

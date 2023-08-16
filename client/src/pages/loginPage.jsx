@@ -3,6 +3,7 @@ import {Link, Navigate} from "react-router-dom";
 import axios from "axios";
 import { UserContext } from "../context/userContext";
 import { Apple, Google, facebook } from "../assets/img";
+import Loader from "../components/Loader";
 
 
 export default function LoginPage(){
@@ -10,6 +11,7 @@ export default function LoginPage(){
     const [password, setPassword] = useState('');
     const [redirect, setRedirect] = useState(false);
     const [message, setMessage] = useState('');
+    const [loading, setLoading] = useState(false);
     const{user,setUser,setReady} = useContext(UserContext)
     async function loginHandler(ev){
         ev.preventDefault();
@@ -22,10 +24,15 @@ export default function LoginPage(){
             }else if(!password){
                 setMessage("Please enter your password")
             }else{
+                setLoading(true);
                 const {data} = await axios.post('/login', {email,password});
-                console.log(data);
-                setUser(data);
-                 setRedirect(true);
+                if(data.status === 'success'){
+                    setUser(data.message);
+                    setRedirect(true);
+                    setLoading(false);
+                }else{
+                    setMessage(data.message);
+                }
             }
         
         } catch (error) {
@@ -44,14 +51,22 @@ export default function LoginPage(){
         <div className="-mt-32 px-10" >
         <form className="max-w-md mx-auto" onSubmit={loginHandler}>
                 <h1 className="text-4xl text-center mb-4">Login</h1>
+                {message && (
+                    <div className="text-center bg-red-600/10 rounded-[10px] font-medium py-2 text-red-600">
+                        {message}
+                    </div>
+                )}
+                {loading && (
+                    <Loader />
+                )}
                 <input type="email" 
                 placeholder={'Example@mail.com'}
                  value={email}
-                 onChange={e => setEmail(e.target.value)} />
+                 onChange={e => {setEmail(e.target.value);setMessage('')}} />
                 <input type="password"
                   placeholder={'Password'}
                   value={password}
-                  onChange={e => setPassword(e.target.value)} />
+                  onChange={e => {setPassword(e.target.value);setMessage('')}} />
                 <button className="primary">Login</button>
                 <div className="mt-5">
                         <h1 className="text-gray-500 text-center capitalize">sign-in with</h1>
