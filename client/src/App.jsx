@@ -6,7 +6,6 @@ import Layout from './layout';
 import RegisterPage from './pages/registerPage';
 import axios from 'axios';
 import {UserContextProvider}  from './context/userContext';
-// import AccountPage from './pages/accountPage';
 import ProfilePage from './pages/ProfilePage';
 import PlacesPage from './pages/placesPage';
 import BookingsPage from './pages/BookingsPage';
