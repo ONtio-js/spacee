@@ -31,7 +31,7 @@ export default function PlacePage() {
                     <h1 className="text-white text-center text-2xl">photos of {place.title}</h1>
                     {place.image.length > 0 && place.image.map(imag => (
                         <div>
-                            <img src={`http://localhost:8080/controller/images/${imag}`} alt="" srcSet="" />
+                            <img src={`${config.production.baseurl}/controller/images/${imag}`} alt="" srcSet="" />
 
                         </div>
                     ))}
