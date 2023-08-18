@@ -11,18 +11,11 @@ export default function UploadImage({ addedPhoto, onChange }) {
         onChange(prev => [data, ...prev]);
         setPhotolinks('');
     };
-    const toBase64 = file => new Promise((resolve, reject) => {
-        const reader = new FileReader;
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = error => reject(error);
-    });
     async function uploadPhoto(ev) {
         const file = ev.target.files;
         const formData = new FormData();
         for (let i = 0; i < file.length; i++) {
-            const result = await toBase64(file[i]);
-            formData.append('photos', result);
+            formData.append('photos', file[i]);
         }
         const response = await axios.post('/upload', formData, {
             headers: {
@@ -57,7 +50,7 @@ export default function UploadImage({ addedPhoto, onChange }) {
             <div className=" mt-3 grid gap-2 grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
                 {addedPhoto.length > 0 && addedPhoto.map(link => (
                     <div key={link} className="h-32 flex relative">
-                        <img className="rounded-2xl w-full object-cover " src={config.production.backendUrl + "/controller/images/" + link} alt="" srcSet="" />
+                        <img className="rounded-2xl w-full object-cover " src={config.production.baseurl + "/controller/images/" + link} alt="" srcSet="" />
                         <button onClick={ev => removePhoto(ev,link)} className="absolute bottom-1 p-2 right-1 bg-white rounded-full bg-opacity-70 cursor-pointer ">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="red" className="w-4 h-4">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />

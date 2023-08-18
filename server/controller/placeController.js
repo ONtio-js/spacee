@@ -30,12 +30,8 @@ const uploadFiles = async (req, res) => {
             const parts = originalname.split('.');
             const ext = parts[parts.length - 1];
             const newName = "photo-"+ Date.now() +"." + ext;
-            
-            const result = await cloudinary.uploader.upload(newName,{
-                folder:'spacee/houses'
-            })
-            uploadedFiles.push(result);
-            console.log(result);
+            fs.renameSync(path, __dirname+'/images/'+newName);
+            uploadedFiles.push(newName);
             };
             res.status(200).json(uploadedFiles);
     } catch (error) {
