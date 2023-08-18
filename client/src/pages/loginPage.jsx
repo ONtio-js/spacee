@@ -80,7 +80,7 @@ export default function LoginPage() {
                     <div className="mt-5">
                         <h1 className="text-gray-500 text-center capitalize">sign-in with</h1>
                         <div className="flex items-center gap-5 justify-center py-2">
-                            <div className="border rounded-full"><img src={Google} alt="google_login" className="w-8 h-8 cursor-pointer" /></div>
+                            <div className="border rounded-full"><img src={Google} alt="google_login" className="w-8 h-8 cursor-pointer p-2" /></div>
                             <div className="border rounded-full"><img src={facebook} alt="google_login" className="w-10 h-10 cursor-pointer" /></div>
                             <div className="border rounded-full"><img src={Apple} alt="google_login" className="w-10 h-10 cursor-pointer" /></div>
                         </div>
