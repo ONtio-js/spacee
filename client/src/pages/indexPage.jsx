@@ -65,10 +65,10 @@ export default function indexpage() {
             <Link to={'/places/' + place._id} key={place._id} className="bg-gray-50/50 border-b-2 border-gray-400 p-2 rounded-xl">
               <div className="relative bg-gray-500  flex mb-2 rounded-2xl">
                 <div className="w-[300px] h-[150px] bg-gray-300 rounded-2xl">
-                <img className="rounded-2xl aspect-square" src={config.production.backendUrl+'/controller/images/' + place.image?.[0]} alt="" srcSet="" />
+                <img className="rounded-2xl aspect-square" src={'https://spacee-api.onrender.com/controller/images/' + place.image?.[0]} alt="" srcSet="" />
                 </div>
                 <div className=" absolute left-1 bottom-1 w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center ">
-                  <img src={config.production.backendUrl + '/controller/images/' + place.image?.[1]} alt="" className="rounded-full w-full h-full" />
+                  <img src={'https://spacee-api.onrender.com/controller/images/' + place.image?.[1]} alt="" className="rounded-full w-full h-full" />
                   <span className="text-blue-500 absolute top-1 -right-1"><MdVerified/></span>
                 </div>
               </div>
