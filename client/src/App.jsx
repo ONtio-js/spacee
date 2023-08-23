@@ -17,7 +17,7 @@ import config from './config/config';
 import ResetPassword from './pages/ResetPassword';
 import ResetPasswordLink from './pages/ResetPasswordLink';
 
-axios.defaults.baseURL = config.development.backendUrl;
+axios.defaults.baseURL = config.production.backendUrl;
 axios.defaults.withCredentials = true;
 
 function App() {
