@@ -11,6 +11,7 @@ import {RiListIndefinite} from 'react-icons/ri';
 
 import NavLinks from "./NavLinks";
 import ProfileEdit from "../components/ProfileEdit";
+import config from "../config/config";
 
 
 export default function ProfilePage() {
@@ -29,7 +30,7 @@ export default function ProfilePage() {
         </div>
         <div className="shadow-md bg-gray-50 rounded-l-[20px] hidden md:flex flex-col gap-6 items-center justify-center p-4 ">
           <div className="w-52 h-52 bg-gray-200 rounded-[10px]">
-            <img src={user?.image} alt="user profile" srcSet="" />
+            <img src={`${config.development.baseurl}/controller/images/profile/${user?.profileImage}`} alt="user profile" className="h-52 rounded-[10px]" />
           </div>
 
           <div className="w-full p-2 h-[200px] bg-white/50 flex flex-col  gap-3 rounded-md overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-400 ">

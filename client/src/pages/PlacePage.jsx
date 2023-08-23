@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom"
 import Booking from "./Booking";
 import { useContext } from "react";
 import { UserContext } from "../context/userContext";
+import config from "../config/config";
 export default function PlacePage() {
     const [place, setPlace] = useState();
     const [showAllphotos, setShowAllPhotos] = useState(false);
@@ -31,7 +32,7 @@ export default function PlacePage() {
                     <h1 className="text-white text-center text-2xl">photos of {place.title}</h1>
                     {place.image.length > 0 && place.image.map(imag => (
                         <div>
-                            <img src={`http://localhost:8080/controller/images/${imag}`} alt="" srcSet="" />
+                            <img src={`${config.production.baseurl}/controller/images/${imag}`} alt="" srcSet="" />
 
                         </div>
                     ))}
@@ -50,9 +51,9 @@ export default function PlacePage() {
                     </svg>{place.addresses}</a>
                 </div>
                 <div className=" ">
-                    <div className="grid gap-2 grid-cols-[2fr_1fr] rounded-3xl overflow-hidden">
-                        <div>
-                            <img onClick={() => setShowAllPhotos(true)} className="aspect-square" src={`http://localhost:8080/controller/images/${place.image[0]}`} alt="" srcSet="" />
+                    <div className="grid gap-2 grid-cols-[2fr_1fr] rounded-3xl  overflow-hidden">
+                        <div >
+                            <img onClick={() => setShowAllPhotos(true)} className="w-[100%] h-[98%]" src={`http://localhost:8080/controller/images/${place.image[0]}`} alt="hose-image"  />
                         </div>
                         <div className="grid gap-2">
                             <div>

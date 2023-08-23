@@ -14,8 +14,10 @@ import PlacePage from './pages/PlacePage';
 import BookingPage from './pages/BookingPage';
 import VerificationPage from './pages/VerificationPage';
 import config from './config/config';
+import ResetPassword from './pages/ResetPassword';
+import ResetPasswordLink from './pages/ResetPasswordLink';
 
-axios.defaults.baseURL = config.production.backendUrl;
+axios.defaults.baseURL = config.development.backendUrl;
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -35,6 +37,8 @@ function App() {
        <Route path ='/places/:id' element = {< PlacePage />} />
        <Route path='/account/bookings/:id' element = {< BookingPage />} />
       <Route path='/verification' element = {< VerificationPage />} />
+      <Route path='/reset-password/:id' element = {< ResetPassword/>} />
+      <Route path='/reset-password-link' element = {< ResetPasswordLink />} />
       </Route>
     </Routes>
     </UserContextProvider>

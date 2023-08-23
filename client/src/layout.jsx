@@ -8,7 +8,7 @@ export default function Layout() {
     <div className="overflow-x-auto py-4 flex flex-col min-h-screen">
       < Header />
       < Outlet />
-      {url !== '/login' && url !== '/register' && (
+      {url === '/'  && (
         < Footer />
       )}
   

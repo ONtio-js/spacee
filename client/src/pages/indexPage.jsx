@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {MdVerified} from 'react-icons/md';
 import ToggglBar from "../components/ToggglBar";
@@ -8,11 +8,10 @@ import config from "../config/config";
 export default function indexpage() {
   const [places, setPlaces] = useState([]);
   const [addons, setAddons] = useState(false);
- 
   useEffect(() => {
     axios.get('/allplaces').then(response => {
      
-      setPlaces([ ...response.data]);
+      setPlaces([ ...response.data,...response.data]);
     })
   }, [])
 
@@ -20,7 +19,7 @@ export default function indexpage() {
     <>
       <div>
         
-        <div className="fixed top-16 mt-2 w-full flex md:gap-4  justify-around bg-gray-50 py-2 md:mx-2 rounded-lg">
+        <div className="fixed top-16 mt-2 w-full flex md:gap-4  justify-around bg-gray-50 py-2 md:mx-2 rounded-lg z-50">
           <label className="bg-white p-1 rounded-lg cursor-pointer">
           <input type="hidden" name="free parking lot" />
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
@@ -60,15 +59,15 @@ export default function indexpage() {
         </div>
        <div className="my-32">
         <ToggglBar switchAddons={() => setAddons(prev => !prev)} />
-       <div className="grid grid-cols-2 gap-x-6 gap-y-8 md:grid-cols-3 lg:grid-cols-4 px-4 md:px-10">
+       <div className="grid grid-cols-2 gap-x-6 gap-y-8 md:grid-cols-3 lg:grid-cols-4 px-4 md:px-10 ">
           {places.length > 0? places.map(place => (
-            <Link to={'/places/' + place._id} key={place._id} className="bg-gray-50/50 border-b-2 border-gray-400 p-2 rounded-xl">
+            <Link to={'/places/' + place._id} key={place._id} className="bg-gray-50/50 border-b-2 border-gray-400 p-2 rounded-xl ">
               <div className="relative bg-gray-500  flex mb-2 rounded-2xl">
-                <div className="w-[300px] h-[150px] bg-gray-300 rounded-2xl">
+                <div className=" bg-gray-300 rounded-2xl">
                 <img className="rounded-2xl aspect-square" src={config.production.baseurl+'/controller/images/' + place.image?.[0]} alt="" srcSet="" />
                 </div>
                 <div className=" absolute left-1 bottom-1 w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center ">
-                  <img src={config.production.baseurl + '/controller/images/' + place.image?.[1]} alt="" className="rounded-full w-full h-full" />
+                  <img src={config.production.baseurl + '/controller/images/' + user.image?.[1]} alt="" className="rounded-full w-full h-full" />
                   <span className="text-blue-500 absolute top-1 -right-1"><MdVerified/></span>
                 </div>
               </div>
