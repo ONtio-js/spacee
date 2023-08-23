@@ -88,7 +88,7 @@ const ProfileEdit = ({ open, onClose }) => {
             <div className='flex items-start  justify-between'>
               <div className='bg-gray-200 w-2/3 md:w-1/3 flex flex-col items-center gap-1 rounded-[10px] '>
                 {image ? (
-                  <img src={`${config.development.baseurl}/controller/images/profile/${image}` } className='rounded-[10px]' alt="" srcset="" />
+                  <img src={`${config.production.baseurl}/controller/images/profile/${image}` } className='rounded-[10px]' alt="" srcset="" />
                 ) :(
                   <>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" className="w-20 h-20 relative top-1">
