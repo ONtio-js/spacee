@@ -67,7 +67,7 @@ export default function indexpage() {
                 <img className="rounded-2xl aspect-square" src={config.production.baseurl+'/controller/images/' + place.image?.[0]} alt="" srcSet="" />
                 </div>
                 <div className=" absolute left-1 bottom-1 w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center ">
-                  <img src={config.production.baseurl + '/controller/images/' + user.image?.[1]} alt="" className="rounded-full w-full h-full" />
+                  <img src={config.production.baseurl + '/controller/images/'} alt="" className="rounded-full w-full h-full" />
                   <span className="text-blue-500 absolute top-1 -right-1"><MdVerified/></span>
                 </div>
               </div>
