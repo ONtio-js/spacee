@@ -24,15 +24,20 @@ const ProfileEdit = ({ open, onClose }) => {
   const { user } = useContext(UserContext);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+    let requestData = {};
     try {
       if (!firstName && !lastName) {
         setErrorMessage('All fields must be filled in');
         return;
       }
-      const { data } = await axios.patch('/profile', {
-        firstName, lastName, phone, occupation, homeAddress: address, website,profileImage: image
-      });
+      if(!image){
+        requestData = {
+          firstName, lastName, phone, occupation, homeAddress: address, website
+        }
+      }else{
+        requestData = {profileImage: image,firstName, lastName, phone, occupation, homeAddress: address, website}
+      }
+      const { data } = await axios.patch('/profile', );
       setSuccessMessage(data.message);
     } catch (error) {
       console.log(error.message);
